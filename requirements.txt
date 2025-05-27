@@ -1,0 +1,10 @@
+apify-client 
+dotenv
+requests
+openpyxl
+openai
+httpx
+ruamel.yaml
+python-docx
+flet
+nuitka
