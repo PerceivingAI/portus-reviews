@@ -42,7 +42,7 @@ def build_all_in_button(page, progress_bar, dlg_result, snack, dlg_message, get_
 
         def worker():
             try:
-                for idx in range(1, 8):
+                for idx in range(1, 9):
                     btn_all_in.text = f"Running {idx}/8..."
                     page.update()
                     output_path = _run_cycle(idx, log_gui)

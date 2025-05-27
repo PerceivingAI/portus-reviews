@@ -47,7 +47,7 @@ def build_user_content(idx: int) -> tuple[ft.Container, callable]:
         text_style=ft.TextStyle(color=pt.COLOR_GREY),
     )
 
-    name_box = pt.expand_width_textfield(label="Hotel Name", value=hotel_name)
+    name_box = pt.expand_width_textfield(label="Hotel/Restaurant Name", value=hotel_name)
     ta_box   = pt.expand_width_textfield(label="Tripadvisor URL", value=ta_url)
     go_box   = pt.expand_width_textfield(label="Google URL",      value=go_url)
     bk_box   = pt.expand_width_textfield(label="Booking URL",     value=bk_url)

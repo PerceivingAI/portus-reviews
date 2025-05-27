@@ -29,18 +29,23 @@ hotel_url_bank:
   selected_hotel: hotel_1
 
   hotel_1:
-    hotel_1_name:
-    tripadvisor:
-    google:
-    booking:
-    expedia:
+    hotel_1_name: Secrets Akumal Riviera Maya
+    tripadvisor: 
+      https://www.tripadvisor.com/Hotel_Review-g499445-d8285376-Reviews-Secrets_Akumal_Riviera_Maya-Akumal_Tulum_Yucatan_Peninsula.html
+    google: 
+      https://www.google.com/maps/place/Secrets+Akumal+Riviera+Maya/@20.3961554,-87.3233092,17z/data=!4m10!3m9!1s0x8f4e33e72b8f04e9:0xf03f725a11676cb4!5m3!1s2025-06-06!4m1!1i2!8m2!3d20.3961554!4d-87.3207343!16s%2Fg%2F11b7vt1s65?entry=ttu&g_ep=EgoyMDI1MDUyMS4wIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D
+    booking: 
+      https://www.booking.com/hotel/mx/secrets-akumal-riviera-maya-akumal.html?aid=390156&label=duc511jc-1FCAsooAFCInNlY3JldHMtYWt1bWFsLXJpdmllcmEtbWF5YS1ha3VtYWxIM1gDaI4CiAEBmAExuAEYyAEP2AEB6AEB-AECiAIBqAIEuAKSqtbBBsACAdICJDQxMTk5ZjNmLTlhNDMtNGI5ZS04ODcyLTVjYWE3ZGZlMTNkM9gCBeACAQ&sid=63218e5faa7d7d499cb2bd4ecfa723bc&dest_id=-1650174&dest_type=city&dist=0&group_adults=2&group_children=0&hapos=1&hpos=1&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&srepoch=1748342063&srpvid=00c54a4a29370829&type=total&ucfs=1
+    expedia: 
+      https://www.expedia.com/Akumal-Hotels-Secrets-Akumal-Riviera-Maya-Adults-Only-All-Inclusive.h10489505.Hotel-Information
 
   hotel_2:
-    hotel_2_name:
-    tripadvisor:
-    google:
-    booking:
-    expedia:
+    hotel_2_name: Floresta Das Escadinhas
+    tripadvisor: 
+      https://www.tripadvisor.com/Restaurant_Review-g189158-d1520116-Reviews-Floresta_Das_Escadinhas-Lisbon_Lisbon_District_Central_Portugal.html
+    google: 'https://www.google.com/maps/place/Floresta+das+Escadinhas/@38.712682,-9.1389949,17z/data=!3m1!4b1!4m6!3m5!1s0xd1934786f407dc7:0xd1c97dae3d0621!8m2!3d38.712682!4d-9.13642!16s%2Fg%2F1x5qv0_b?entry=ttu&g_ep=EgoyMDI1MDUyMS4wIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D'
+    booking: ''
+    expedia: ''
 
   hotel_3:
     hotel_3_name:
@@ -149,9 +154,10 @@ clean_config:
 model_parameters:
   system_prompt_bank:
     selected_system_prompt: sys_prompt_a
-    sys_prompt_a: test a
-    sys_prompt_b: test b
-    sys_prompt_c: test c
+    sys_prompt_a: 'You are assisting the customer service please provide a short and
+      warm reply to the following review:'
+    sys_prompt_b:
+    sys_prompt_c:
   general_parameters:
     temperature: 0.7
     top_p: 1
