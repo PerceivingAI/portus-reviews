@@ -9,7 +9,7 @@ def build_progress_container() -> tuple[ft.Container, ft.ProgressBar]:
     The container is fixed height and full width. Bar is initially hidden.
     """
     progress_bar = ft.ProgressBar(
-        width=float("inf"),  # Expands fully inside the container
+        width=float("inf"),
         color=pt.COLOR_MAIN_ACCENT,
         bgcolor=pt.COLOR_TRANSPARENT,
         visible=False,

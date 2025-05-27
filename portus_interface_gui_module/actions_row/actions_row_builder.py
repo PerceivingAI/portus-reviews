@@ -21,11 +21,9 @@ def build_actions_row(
     site_toggles = build_site_toggles()
     job_toggles = build_job_toggles()
 
-    # Button placeholders (to allow cross-reference)
     btn_generate = None
     btn_all_in = None
 
-    # Build buttons with references to each other
     btn_generate = build_generate_button(
         page, progress_bar, dlg_result, snack, dlg_message,
         get_other_button=lambda: btn_all_in

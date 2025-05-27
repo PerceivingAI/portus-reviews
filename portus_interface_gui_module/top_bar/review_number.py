@@ -5,7 +5,6 @@ from portus_config_module.config_writer import update_yaml_value
 from portus_config_module.config_manager import reload_config
 import portus_theme_module as pt
 
-# ── path to update in config.yaml ──
 YAML_PATH_REVIEW_NUMBER = ["scan_config", "scan_general_parameters", "review_number"]
 
 ALLOWED_VALUES = [str(i) for i in range(1, 701)]

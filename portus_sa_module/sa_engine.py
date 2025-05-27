@@ -1,3 +1,5 @@
+# portus_sa_module\sa_engine.py
+
 from typing import List, Dict, Tuple
 from portus_api_module.api_factory import get_client
 import time
@@ -34,10 +36,8 @@ def score_individual_review(title: str, text: str) -> float:
                 content = response.choices[0].message.content
             else:
                 content = "".join(chunk for chunk in response if isinstance(chunk, str))
-            #print(f"[score_individual_review] Raw model response: {repr(content)}")
             return max(1.0, min(_extract_score(content), 10.0))
         except Exception as exc:
-            #print(f"[score_individual_review] ❌ Attempt {attempt} failed: {exc}")
             if attempt == len(retry_delays):
                 return float("nan")
             time.sleep(delay)
@@ -57,7 +57,6 @@ def score_all_reviews(reviews: List[Dict[str, str]]) -> Tuple[float, str]:
                 content = response.choices[0].message.content
             else:
                 content = "".join(chunk for chunk in response if isinstance(chunk, str))
-            #print(f"[score_all_reviews] Raw model response: {repr(content)}")
             score_line, *rest = content.split("\n", 1)
             score = max(1.0, min(_extract_score(score_line), 10.0))
             summary = rest[0].strip() if rest else ""

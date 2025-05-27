@@ -30,7 +30,6 @@ def build_all_in_button(page, progress_bar, dlg_result, snack, dlg_message, get_
         progress_bar.visible = True
         page.update()
 
-        # Capture original prompt and hotel
         reload_config()
         original_prompt = CONFIG["user_prompt_bank"]["selected_prompt"]
         original_hotel = CONFIG["hotel_url_bank"]["selected_hotel"]
@@ -50,7 +49,6 @@ def build_all_in_button(page, progress_bar, dlg_result, snack, dlg_message, get_
                 snack.content.value = f"[ERROR] {ex}"
                 snack.open = True
             finally:
-                # Restore original tab
                 update_yaml_value(["user_prompt_bank", "selected_prompt"], original_prompt)
                 update_yaml_value(["hotel_url_bank", "selected_hotel"], original_hotel)
                 reload_config()

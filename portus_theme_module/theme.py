@@ -1,3 +1,5 @@
+# portus_theme_module\theme.py
+
 """
 Global theme helpers and single entry‑point (`apply_theme`) that
 returns a read‑only ThemeContext for easy token access.

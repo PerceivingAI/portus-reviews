@@ -1,3 +1,5 @@
+# portus_theme_module\containers.py
+
 import flet as ft
 
 from .palette import (
@@ -7,7 +9,7 @@ from .palette import (
     COLOR_SHADOW,
 )
 from .metrics import BORDER_RADIUS
-from .buttons import text_button  # if wrappers need it elsewhere
+from .buttons import text_button 
 
 def wrap_label(control: ft.Control, padding: int = 4) -> ft.Container:
     return ft.Container(

@@ -46,25 +46,21 @@ def build_cutoff_date() -> tuple[ft.Container, ft.TextField]:
     def on_change(e: ft.ControlEvent):
         digits = e.control.value.replace("-", "").strip()
 
-        # Allow clear
         if digits == "":
             e.control.value = ""
             e.control.update()
             return
 
-        # Only digits, max 8
         if not digits.isdigit() or len(digits) > 8:
             e.control.value = last_valid["val"]
             e.control.update()
             return
 
-        # Insert dashes as you type
         e.control.value = insert_dashes(digits)
         e.control.update()
 
     def on_blur(e: ft.ControlEvent):
         digits = e.control.value.replace("-", "").strip()
-        # 8 digits: valid date
         if len(digits) == 8:
             year, month, day = digits[:4], digits[4:6], digits[6:]
             try:
@@ -77,7 +73,6 @@ def build_cutoff_date() -> tuple[ft.Container, ft.TextField]:
                 e.control.value = padded
             except Exception:
                 e.control.value = last_valid["val"]
-        # 7 digits: pad day with 0
         elif len(digits) == 7:
             year, month, day = digits[:4], digits[4:6], digits[6:]
             padded = f"{year}-{month}-0{day}"
@@ -90,7 +85,6 @@ def build_cutoff_date() -> tuple[ft.Container, ft.TextField]:
                 e.control.value = padded
             except Exception:
                 e.control.value = last_valid["val"]
-        # empty or other: revert to last valid
         else:
             e.control.value = last_valid["val"]
         e.control.update()

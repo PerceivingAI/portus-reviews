@@ -1,3 +1,5 @@
+# portus_theme_module\buttons.py
+
 import flet as ft
 
 from .palette import (
@@ -75,7 +77,6 @@ def floating_main_button(*, icon_name: str, tooltip: str, on_click, icon_size: i
         "tooltip": tooltip,
         "height": 42,
         "width": 42,
-        #"bgcolor": COLOR_TRANSPARENT,
         "bgcolor": COLOR_MAIN_ACCENT,
         "focus_color": COLOR_HOVER_MAIN,
         "foreground_color": COLOR_MAIN_ACCENT,
@@ -130,8 +131,6 @@ def elevated_main_button(
         expand=expand,
         width=width,
         height=height,
-        #bgcolor=pt.COLOR_TRANSPARENT,
-        #color=pt.COLOR_MAIN_ACCENT,
         bgcolor=pt.COLOR_MAIN_BUTTON,
         color=pt.COLOR_BG,
         icon_color=pt.COLOR_TEXT,
@@ -145,10 +144,6 @@ def elevated_main_button(
                 ft.ControlState.FOCUSED: pt.COLOR_TRANSPARENT,
                 ft.ControlState.DEFAULT: pt.COLOR_TRANSPARENT,
             },
-            # text_style=ft.TextStyle(
-            #     size=typo.FONT_SIZE_TITLE,
-            #     weight=ft.FontWeight.W_500,
-            # ),
         ),
         **kw,
     )

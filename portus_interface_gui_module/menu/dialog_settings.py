@@ -56,9 +56,6 @@ def build_general_parameters_container() -> tuple[ft.Container, ft.Slider, ft.Sl
         )
     )
 
-
-
-    # Two-column layout
     layout = ft.Column(
         controls=[
             ft.Row(
@@ -153,7 +150,7 @@ def build_settings_dialog() -> ft.AlertDialog:
 
     def save_all(_):
         save_btn.text = "✓"
-        save_btn.update()  # Show check immediately
+        save_btn.update()
 
         # Model settings
         update_yaml_value(["mode", "api", "openai", "model"], openai_model.value.strip())

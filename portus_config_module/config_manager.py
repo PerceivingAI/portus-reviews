@@ -1,7 +1,5 @@
-# ───────────────────────────────────────────────────────────
-#  Config manager: loads review_app_config.yaml once and
-#  exposes convenient typed getters + published constants.
-# ───────────────────────────────────────────────────────────
+# portus_config_module\config_manager.py
+
 from __future__ import annotations
 from pathlib import Path
 from typing import Any, Dict

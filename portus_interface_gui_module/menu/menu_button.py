@@ -17,7 +17,6 @@ def build_menu_button(dlg_help, page) -> ft.PopupMenuButton:
         dlg = build_settings_dialog()
         dlg.key = "SETTINGS_DIALOG"          
 
-        # Remove any previous Settings dialog
         for ctl in list(page.overlay):
             if getattr(ctl, "key", None) == "SETTINGS_DIALOG":
                 page.overlay.remove(ctl)

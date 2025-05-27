@@ -1,3 +1,5 @@
+# portus_api_module\api_factory.py
+
 import os
 import httpx
 
@@ -40,8 +42,8 @@ def get_client():
 def get_understanding_client(provider="google"):
     base_url = get_model_url("base_url", provider)
 
-    print(f"[api_factory] 🔧 Initializing client for provider: {provider}")
-    print(f"[api_factory] 🌐 Base URL: {base_url}")
+    # print(f"[api_factory] 🔧 Initializing client for provider: {provider}")
+    # print(f"[api_factory] 🌐 Base URL: {base_url}")
 
     if provider == "google":
         import google.genai as genai

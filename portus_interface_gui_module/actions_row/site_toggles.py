@@ -27,7 +27,6 @@ def build_site_toggles() -> list[ft.Container]:
             alignment=ft.alignment.center_left,
             padding=0,
             bgcolor=pt.COLOR_TRANSPARENT,
-            #bgcolor='red',
             height=50,
             width=95,
         )

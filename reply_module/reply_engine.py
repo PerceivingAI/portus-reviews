@@ -1,3 +1,5 @@
+# reply_module\reply_engine.py
+
 """
 Builds prompt, calls chosen provider via portus_api_module, returns reply text.
 """
@@ -15,9 +17,8 @@ from portus_config_module.config_manager import (
 
 client = get_client()
 
-# --------------------------------------------------------------------------- #
 def _build_messages(review_text: str, title_text: str = "") -> List[Dict[str, str]]:
-    reload_config()  # ✅ Ensure latest YAML values
+    reload_config()
     msgs: List[Dict[str, str]] = []
 
     system_prompt = get_system_prompt()
@@ -33,9 +34,8 @@ def _build_messages(review_text: str, title_text: str = "") -> List[Dict[str, st
 
     return msgs
 
-# --------------------------------------------------------------------------- #
 def generate_reply(provider: str, review_text: str, title_text: str = "") -> str:
-    reload_config()  # ✅ Reload again for temperature/top_p safety
+    reload_config()
     messages = _build_messages(review_text, title_text)
 
     params = get_general_params()
@@ -63,7 +63,7 @@ def generate_reply(provider: str, review_text: str, title_text: str = "") -> str
         return response.choices[0].message.content
 
     reply_parts: List[str] = []
-    for chunk in response:  # generator
+    for chunk in response:
         if isinstance(chunk, str):
             reply_parts.append(chunk)
 

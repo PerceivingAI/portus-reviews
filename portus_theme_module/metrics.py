@@ -1,3 +1,5 @@
+# portus_theme_module\metrics.py
+
 """
 Window, chat and component size tokens.
 """

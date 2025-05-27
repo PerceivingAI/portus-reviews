@@ -1,8 +1,8 @@
 # reply_module/reply_manager.py
+
 from pathlib import Path
 from openpyxl import load_workbook
 
-#from portus_config_module import config_manager as cfg
 from reply_module.reply_engine import generate_reply
 
 PROVIDER_REPLY_COLUMNS = {
@@ -46,20 +46,19 @@ def handle_reply_generation(provider: str, active_sites: list[str], clean_file_p
     headers = [cell.value for cell in ws[1]]
     headers_lower = [str(h).strip().lower() if h else "" for h in headers]
 
-    # Ensure reply column exists
     if reply_column in headers:
         reply_col_idx = headers.index(reply_column)
     else:
         reply_col_idx = len(headers)
         ws.cell(row=1, column=reply_col_idx + 1, value=reply_column)
-        print(f"➕ Added reply column: '{reply_column}'")
+        #print(f"➕ Added reply column: '{reply_column}'")
 
     site = active_sites[0]
     review_col = SITE_REVIEW_COLUMNS[site]
     title_col  = SITE_TITLE_COLUMNS[site]
 
     if review_col.lower() not in headers_lower:
-        print(f"❌ Review column '{review_col}' not found in sheet.")
+        #print(f"❌ Review column '{review_col}' not found in sheet.")
         wb.close()
         return
 
@@ -76,8 +75,8 @@ def handle_reply_generation(provider: str, active_sites: list[str], clean_file_p
 
         reply = generate_reply(provider, review_text, title_text)
         ws.cell(row=row_idx, column=reply_col_idx + 1, value=reply)
-        print(f"💾 Wrote reply to row {row_idx}")
+        #print(f"💾 Wrote reply to row {row_idx}")
 
     wb.save(clean_file_path)
     wb.close()
-    print("✅ Workbook saved.")
+    #print("✅ Workbook saved.")

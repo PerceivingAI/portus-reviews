@@ -1,3 +1,5 @@
+# writer_module\writer_clean.py
+
 from pathlib import Path
 from openpyxl import load_workbook, Workbook
 
@@ -8,7 +10,6 @@ def write_clean_excel(site: str, input_file: Path, output_file: Path, columns: l
     headers = [cell.value for cell in ws_in[1]]
     col_indices = [headers.index(c) for c in columns if c in headers]
 
-    # Booking-specific logic to create "text"
     synthesize_text = False
     liked_idx = disliked_idx = None
     if site == "booking":
@@ -30,7 +31,6 @@ def write_clean_excel(site: str, input_file: Path, output_file: Path, columns: l
     for row_idx, row in enumerate(ws_in.iter_rows(min_row=2, values_only=True), start=2):
         clean_row = [row[i] for i in col_indices]
 
-        # Synthesized text (Booking only)
         if site == "booking" and synthesize_text:
             liked = row[liked_idx] or ""
             disliked = row[disliked_idx] or ""
@@ -46,7 +46,6 @@ def write_clean_excel(site: str, input_file: Path, output_file: Path, columns: l
                 except ValueError:
                     text_val = ""
 
-        # Title check (universal)
         title_val = ""
         for tkey in ("title", "reviewTitle"):
             if tkey in headers:
@@ -57,10 +56,6 @@ def write_clean_excel(site: str, input_file: Path, output_file: Path, columns: l
                 except ValueError:
                     continue
 
-        # DEBUG PRINT
-        # print(f"[ROW {row_idx}] TITLE={repr(title_val)} TEXT={repr(text_val)} CLEAN_ROW={clean_row}")
-
-        # Final check: skip if both are empty or None
         if not title_val and not text_val:
             continue
 

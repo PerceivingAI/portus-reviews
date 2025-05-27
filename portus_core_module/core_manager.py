@@ -54,10 +54,6 @@ def _determine_active_sites(hotel_urls: dict) -> list[str]:
 def run_app(log_gui: callable = lambda msg: None) -> Path:
     reload_config()
 
-    # msg = "🔧 Operation mode: api"
-    # print(msg)
-    # log_gui(msg)
-
     api_key = os.getenv("APIFY_API_KEY", "").strip()
     if not api_key:
         raise RuntimeError("APIFY_API_KEY not found in environment variables")
@@ -70,33 +66,25 @@ def run_app(log_gui: callable = lambda msg: None) -> Path:
     active_sites = _determine_active_sites(hotel_urls)
     if not active_sites:
         msg = "❌ No active review sites configured."
-        print(msg)
         log_gui(msg)
         return output_root
 
     msg = f"🏨  Selected hotel: {hotel_name}"
-    print(msg)
     log_gui(msg)
 
     for site in active_sites:
         msg = f"\n🌐 Processing site: {site}"
-        print(msg)
         log_gui(msg)
 
         raw_url = hotel_urls.get(site, "")
         try:
-            # msg = f"✅ Validated URL for '{site}': {raw_url}"
-            # print(msg)
-            # log_gui(msg)
 
             url = validate_url(site, raw_url)
 
             msg = f"🔗  Using URL: {url}"
-            print(msg)
             log_gui(msg)
         except ValueError as exc:
             msg = f"❌ Invalid URL for {site}: {exc}"
-            print(msg)
             log_gui(msg)
             continue
 
@@ -114,7 +102,6 @@ def run_app(log_gui: callable = lambda msg: None) -> Path:
         actor_id = apify_actors[f"actor_{site}"]
 
         msg = f"▶️ Running Apify actor: {actor_id}"
-        print(msg)
         log_gui(msg)
 
         run_scanner(
@@ -126,17 +113,14 @@ def run_app(log_gui: callable = lambda msg: None) -> Path:
         )
 
         msg = f"💾 Downloading results to: {archive_path}"
-        print(msg)
         log_gui(msg)
 
         msg = f"✅ Scan complete: {archive_path}"
-        print(msg)
         log_gui(msg)
 
         # 4) Clean phase
         if jobs.get("clean", True):
             msg = f"🧼  Cleaning data for {site}..."
-            print(msg)
             log_gui(msg)
 
             keep_cols = clean_cols.get(site, [])
@@ -147,22 +131,11 @@ def run_app(log_gui: callable = lambda msg: None) -> Path:
                 target_file=clean_path,
             )
 
-        # 5) Reply generation
         if jobs.get("reply", True):
             msg = f"✍️  Generating replies for {site}..."
-            print(msg)
             log_gui(msg)
 
-            # msg = f"🧪 Provider: {provider_name}"
-            # print(msg)
-            # log_gui(msg)
-
-            # msg = f"🧪 Active review sites: {[site]}"
-            # print(msg)
-            # log_gui(msg)
-
             msg = f"🧪 Clean file path: {clean_path}"
-            print(msg)
             log_gui(msg)
 
             handle_reply_generation(
@@ -172,13 +145,10 @@ def run_app(log_gui: callable = lambda msg: None) -> Path:
             )
 
             msg = f"✅ Reply generation complete."
-            print(msg)
             log_gui(msg)
 
-        # 6) Sentiment analysis
         if jobs.get("sa", True):
             msg = f"📊  Analyzing sentiment for {site}..."
-            print(msg)
             log_gui(msg)
 
             handle_sentiment_analysis(
@@ -187,7 +157,6 @@ def run_app(log_gui: callable = lambda msg: None) -> Path:
             )
 
             msg = "✅ SA done."
-            print(msg)
             log_gui(msg)
 
     return output_root

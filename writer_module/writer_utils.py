@@ -1,3 +1,5 @@
+# writer_module\writer_utils.py
+
 from datetime import datetime
 import re
 
@@ -14,7 +16,6 @@ def get_site_prefix(site: str) -> str:
     return SITE_PREFIX_MAP[site]
 
 def sanitize_and_truncate(name: str, max_len: int = 10) -> str:
-    # Replace spaces and remove non-alphanumeric
     cleaned = re.sub(r'[^a-zA-Z0-9]', '', name.replace(" ", ""))
     return cleaned[:max_len]
 

@@ -9,7 +9,7 @@ import portus_theme_module as pt
 
 PROVIDER_LABELS = {
     "openai": "OpenAI",
-    "google": "google",
+    "google": "Google",
     "xai": "xAI"
 }
 
@@ -62,7 +62,7 @@ def build_provider_menu(
         menu_position=menu_position,
         offset=offset,
         padding=ft.Padding(7, 7, 7, 7),
-        **pt.pop_menu_button()  # <- centralized button style
+        **pt.pop_menu_button()
     )
 
     container = ft.Container(
@@ -73,7 +73,6 @@ def build_provider_menu(
         ),
         alignment=ft.Alignment(0.0, 1.0),
         bgcolor=pt.COLOR_TRANSPARENT,
-        #bgcolor='red',
         border_radius=ft.RoundedRectangleBorder(radius=pt.BORDER_RADIUS),
         border=ft.Border(
             left=ft.BorderSide(0, pt.COLOR_TRANSPARENT),

@@ -36,7 +36,6 @@ def build_alerts(page: ft.Page) -> tuple[ft.AlertDialog, ft.SnackBar, ft.Text]:
             size=pt.FONT_SIZE_DEFAULT
         ),
         open=False,
-        #bgcolor='red',
         bgcolor=pt.COLOR_DARK_GREY,
         show_close_icon=True,
         close_icon_color=pt.COLOR_MAIN_ACCENT,
@@ -47,7 +46,6 @@ def build_alerts(page: ft.Page) -> tuple[ft.AlertDialog, ft.SnackBar, ft.Text]:
     )
 
     page.overlay.append(dialog)
-    #page.update() ##
     page.snack_bar = snack
 
     return dialog, snack, dlg_message

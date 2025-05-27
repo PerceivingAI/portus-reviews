@@ -1,3 +1,5 @@
+# portus_theme_module\palette.py
+
 """
 Color tokens – **do not edit values here without design approval**.
 """
@@ -24,7 +26,6 @@ COLOR_BORDER        = '#3a3a3a'
 COLOR_SHADOW        = '#212121'
 COLOR_RED           = 'red'
 
-# derived / aliases
 COLOR_ICON          = COLOR_MAIN_ACCENT
 COLOR_TAG           = '#353535'
 

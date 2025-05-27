@@ -15,7 +15,6 @@ import portus_theme_module as pt
 def main_view(page: ft.Page):
     page.title = "PortusReviews"
     ctx = pt.apply_theme(page)
-    #page.theme_mode = ft.ThemeMode.DARK
     page.window_focused = True
 
     # Set initial window size and make it resizable
@@ -49,7 +48,7 @@ def main_view(page: ft.Page):
     widgets = {
         **action_controls,
         "btn_generate": action_controls["btn_generate"],
-        #"btn_all_in":   action_controls["btn_all_in"],
+        "btn_all_in":   action_controls["btn_all_in"],
         "btn_folder": btn_folder,
         "num_input": num_input,
         "date_input": date_input,

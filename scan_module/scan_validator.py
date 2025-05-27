@@ -1,4 +1,5 @@
 # scan_module/scan_validator.py
+
 from urllib.parse import urlparse
 
 SITE_DOMAINS = {

@@ -15,7 +15,6 @@ def build_title() -> ft.Container:
         content=title,
         alignment=ft.Alignment(0.0, 0.0),
         bgcolor=pt.COLOR_TRANSPARENT,
-        #bgcolor='red',
         border_radius=ft.RoundedRectangleBorder(radius=pt.BORDER_RADIUS),
         border=ft.Border(
             left=ft.BorderSide(0, pt.COLOR_TRANSPARENT),

@@ -38,7 +38,6 @@ def _recursive_validate(default: Dict[str, Any], actual: Dict[str, Any], path: s
 
 
 def validate_or_create():
-    # 1) Ensure config file exists (or create default)
     cfg_path = find_config_path(CONFIG_FILENAME)
     if cfg_path is None:
         cfg_path = CONFIG_PATH
@@ -47,14 +46,12 @@ def validate_or_create():
     else:
         created = False
 
-    # 2) Load config YAML
     try:
         cfg = yaml.load(cfg_path.read_text(encoding="utf-8"))
     except Exception as e:
         print(f"❌ Failed to read config: {e}")
         sys.exit(1)
 
-    # 3) Validate structure against DEFAULT_CONFIG_CONTENT (skip if just created)
     if not created:
         try:
             default = yaml.load(DEFAULT_CONFIG_CONTENT)
@@ -65,11 +62,8 @@ def validate_or_create():
                 print(f"   • {k}")
             sys.exit(1)
 
-    # 4) Report mode
     mode = cfg["mode"]["default_mode"]
-    #print(f"🔧 Operation mode: {mode}")
 
-    # 5) If API mode, load .env then verify provider key
     if mode == "api":
         if ENV_PATH:
             load_dotenv(ENV_PATH, override=True)
@@ -86,12 +80,3 @@ def validate_or_create():
         if not env_var:
             print(f"❌ Unknown provider: {prov}")
             sys.exit(1)
-
-        # val = os.getenv(env_var, "").strip()
-        # placeholder = f"your-{prov}-api-key"
-        # if not val or val == placeholder:
-        #     print(
-        #         f"❌ Default provider “{prov}” selected, but {env_var} is not set or is still the placeholder.\n"
-        #         f"   Please add a valid key to your .env or choose a different provider."
-        #     )
-        #     sys.exit(1)

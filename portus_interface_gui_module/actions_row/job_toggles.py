@@ -1,3 +1,5 @@
+# portus_interface_gui_module\actions_row\job_toggles.py
+
 import flet as ft
 from portus_config_module.config_manager import reload_config, CONFIG
 from portus_config_module.config_writer import update_yaml_value
@@ -25,7 +27,6 @@ def build_job_toggles() -> list[ft.Container]:
             alignment=ft.alignment.center_left,
             padding=0,
             bgcolor=pt.COLOR_TRANSPARENT,
-            #bgcolor='red',
             height=50,
             width=95,
         )

@@ -1,4 +1,5 @@
 # portus_interface_gui_module/display_area/display_tabs_content.py
+
 """
 Dynamic builder for user‑N prompt & hotel editor tabs.
 Call build_user_content(idx) where idx is 1‑based (1…8).
@@ -14,16 +15,10 @@ from portus_config_module.config_manager import load
 from portus_config_module.config_writer import update_yaml_value
 import portus_theme_module as pt
 
-
-# --------------------------------------------------------------------------- #
-#  MAIN FACTORY
-# --------------------------------------------------------------------------- #
 def build_user_content(idx: int) -> tuple[ft.Container, callable]:
-    # ----- Keys -------------------------------------------------------------
     prompt_key = f"prompt_{idx}"
     hotel_key  = f"hotel_{idx}"
 
-    # ----- Load YAML --------------------------------------------------------
     cfg = load()
     hotel_name = cfg["hotel_url_bank"][hotel_key][f"{hotel_key}_name"]
     prompt_txt = cfg["user_prompt_bank"][prompt_key]
@@ -32,7 +27,6 @@ def build_user_content(idx: int) -> tuple[ft.Container, callable]:
     bk_url     = cfg["hotel_url_bank"][hotel_key]["booking"]
     ex_url     = cfg["hotel_url_bank"][hotel_key]["expedia"]
 
-    # ----- Editable fields --------------------------------------------------
     prompt_box = ft.TextField(
         value=prompt_txt,
         multiline=True,
@@ -53,7 +47,6 @@ def build_user_content(idx: int) -> tuple[ft.Container, callable]:
     bk_box   = pt.expand_width_textfield(label="Booking URL",     value=bk_url)
     ex_box   = pt.expand_width_textfield(label="Expedia URL",     value=ex_url)
 
-    # ----- Save button ------------------------------------------------------
     save_btn = pt.elevated_main_button(
         text="Save",
         height=40,
@@ -66,11 +59,9 @@ def build_user_content(idx: int) -> tuple[ft.Container, callable]:
     )
 
     def save(_):
-        # instant ✓
         save_btn.text = "✓"
         save_btn.update()
 
-        # write YAML
         update_yaml_value(["user_prompt_bank", prompt_key], prompt_box.value.strip())
         update_yaml_value(
             ["hotel_url_bank", hotel_key, f"{hotel_key}_name"],
@@ -91,7 +82,6 @@ def build_user_content(idx: int) -> tuple[ft.Container, callable]:
         update_yaml_value(["user_prompt_bank", "selected_prompt"], prompt_key)
         update_yaml_value(["hotel_url_bank", "selected_hotel"], hotel_key)
 
-        # revert text after 0.6 s
         def _revert():
             time.sleep(0.6)
             save_btn.text = "Save"
@@ -101,7 +91,6 @@ def build_user_content(idx: int) -> tuple[ft.Container, callable]:
 
     save_btn.on_click = save
 
-    # ----- Layout -----------------------------------------------------------
     body = ft.Column(
         [
             ft.Row([name_box, save_btn], spacing=10),
@@ -123,7 +112,6 @@ def build_user_content(idx: int) -> tuple[ft.Container, callable]:
         border_radius=pt.BORDER_RADIUS,
     )
 
-    # ----- Reload callback --------------------------------------------------
     def reload_fields():
         cfg = load()
         prompt_box.value = cfg["user_prompt_bank"][prompt_key]
@@ -142,9 +130,6 @@ def build_user_content(idx: int) -> tuple[ft.Container, callable]:
 
     return user_container, reload_fields
 
-# --------------------------------------------------------------------------- #
-#  SYSTEM‑PROMPT FACTORY  (sys_prompt_a / b / c ...)
-# --------------------------------------------------------------------------- #
 def build_system_content(key: str, label: str) -> tuple[ft.Container, callable]:
     """
     key   : string like 'sys_prompt_a'
@@ -153,7 +138,6 @@ def build_system_content(key: str, label: str) -> tuple[ft.Container, callable]:
     cfg = load()
     sys_text = cfg["model_parameters"]["system_prompt_bank"].get(key, "")
 
-    # ----- Text area --------------------------------------------------------
     sys_box = ft.TextField(
         value=sys_text,
         multiline=True,
@@ -168,7 +152,6 @@ def build_system_content(key: str, label: str) -> tuple[ft.Container, callable]:
         text_style=ft.TextStyle(color=pt.COLOR_GREY),
     )
 
-    # ----- Save button ------------------------------------------------------
     save_btn = pt.elevated_main_button(
         text="Save",
         height=40,
@@ -201,10 +184,8 @@ def build_system_content(key: str, label: str) -> tuple[ft.Container, callable]:
 
     save_btn.on_click = save
 
-    # ----- Layout -----------------------------------------------------------
     body = ft.Column(
         [ft.Row([ft.Container(expand=True), save_btn]), sys_box],
-        #[ft.Row([save_btn]), sys_box],
         spacing=17,
         expand=True,
     )
@@ -218,7 +199,6 @@ def build_system_content(key: str, label: str) -> tuple[ft.Container, callable]:
         border_radius=pt.BORDER_RADIUS,
     )
 
-    # ----- reload callback --------------------------------------------------
     def reload_fields():
         cfg = load()
         sys_box.value = cfg["model_parameters"]["system_prompt_bank"].get(key, "")

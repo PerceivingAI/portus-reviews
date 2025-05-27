@@ -1,3 +1,5 @@
+# portus_interface_gui_module\actions_row\generate_button.py
+
 import threading
 import time
 
@@ -18,7 +20,6 @@ def build_generate_button(page, progress_bar, dlg_result, snack, dlg_message, ge
         page.update()
 
         def log_gui(msg: str):
-            #print(f"[GUI] {msg}")  # TEMP DEBUG
             snack.content.value = msg.strip()
             page.open(snack)
             time.sleep(0.75)
@@ -39,7 +40,6 @@ def build_generate_button(page, progress_bar, dlg_result, snack, dlg_message, ge
                 output_path = get_writer_output_folder()
 
                 dlg_message.value = f"The pipeline completed successfully.\n\n{output_path}"
-                #dlg_message.value = f"The pipeline completed successfully.\n\n"
                 dlg_result.open = True
                 page.update()
 

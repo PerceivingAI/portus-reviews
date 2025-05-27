@@ -9,19 +9,16 @@ from portus_config_module.config_writer import update_env_value
 import portus_theme_module as pt
 
 def build_api_dialog() -> ft.AlertDialog:
-    # 1) Load current keys
     load_dotenv(ENV_PATH, override=True)
     openai_key = "" if os.getenv("OPENAI_API_KEY", "").startswith("your-") else os.getenv("OPENAI_API_KEY", "")
     google_key = "" if os.getenv("GOOGLE_API_KEY", "").startswith("your-") else os.getenv("GOOGLE_API_KEY", "")
     xai_key    = "" if os.getenv("XAI_API_KEY", "").startswith("your-") else os.getenv("XAI_API_KEY", "")
     apify_key = "" if os.getenv("APIFY_API_KEY", "").startswith("your-") else os.getenv("APIFY_API_KEY", "")
 
-    # 2) Input fields inside containers
     def make_input_container(label, value):
         return ft.Container(
             content=ft.TextField(
                 label=label,
-                #label_style=ft.TextStyle(color=pt.COLOR_MAIN_ACCENT),
                 label_style=ft.TextStyle(color=pt.COLOR_GREY),
                 text_style=ft.TextStyle(color=pt.COLOR_TEXT, size=pt.FONT_SIZE_LABEL),
                 cursor_color=pt.COLOR_MAIN_ACCENT,
@@ -45,13 +42,11 @@ def build_api_dialog() -> ft.AlertDialog:
     xai_input_container    = make_input_container("XAI API Key",    xai_key)
     apify_input_container = make_input_container("Apify API Key", apify_key)
 
-    # Get actual fields back out to use them later
     openai_input = openai_input_container.content
     google_input = google_input_container.content
     xai_input    = xai_input_container.content
     apify_input = apify_input_container.content
 
-    # 3) Eye button inside 50x50 container
     def make_toggle(field: ft.TextField) -> ft.Container:
         btn = ft.IconButton(
             icon=ft.Icons.VISIBILITY_OFF,
@@ -72,7 +67,6 @@ def build_api_dialog() -> ft.AlertDialog:
     xai_toggle    = make_toggle(xai_input)
     apify_toggle = make_toggle(apify_input)
 
-    # 4) Save button with visual feedback
     save_btn = pt.elevated_main_button(text="Save", height=40, width=75, text_style=ft.TextStyle(color=pt.COLOR_BG, size=pt.FONT_SIZE_DEFAULT,  weight=ft.FontWeight.W_600))
     def save_api_keys(_):
         update_env_value("OPENAI_API_KEY", openai_input.value.strip())
@@ -80,8 +74,6 @@ def build_api_dialog() -> ft.AlertDialog:
         update_env_value("XAI_API_KEY",    xai_input.value.strip())
         update_env_value("APIFY_API_KEY", apify_input.value.strip())
         save_btn.text = "✓"
-        #save_btn.icon = ft.Icons.CHECK_SHARP
-        #save_btn.icon_color = pt.COLOR_GREY
         save_btn.update()
         def _revert():
             time.sleep(0.6)
@@ -91,7 +83,6 @@ def build_api_dialog() -> ft.AlertDialog:
         threading.Thread(target=_revert, daemon=True).start()
     save_btn.on_click = save_api_keys
 
-    # 5) Reset eye icons when dialog closes
     def on_dismiss(_):
         for fld, tog in (
             (xai_input,    xai_toggle),
@@ -103,7 +94,6 @@ def build_api_dialog() -> ft.AlertDialog:
             tog.content.icon = ft.Icons.VISIBILITY_OFF
             fld.update(); tog.update()
 
-    # 6) Row layout with fixed-size containers
     def row(input_container, toggle_container):
         return ft.Container(
             content=ft.Row(
@@ -114,7 +104,6 @@ def build_api_dialog() -> ft.AlertDialog:
             padding=0
         )
 
-    # 7) Final dialog
     dlg = ft.AlertDialog(
         title=ft.Container(
             content=ft.Text(
@@ -125,7 +114,7 @@ def build_api_dialog() -> ft.AlertDialog:
                 ),
             ),
             bgcolor=pt.COLOR_TRANSPARENT,
-            padding=ft.Padding(-4, 0, 0, 0)  # match content_padding left
+            padding=ft.Padding(-4, 0, 0, 0)
         ),
         content=ft.Container(
             content=ft.Column(
@@ -137,7 +126,6 @@ def build_api_dialog() -> ft.AlertDialog:
                 ],
                 spacing=10,
                 alignment="center",
-                #tight=False,  # Let it size naturally based on rows
             ),
             height=250,
             padding=0,
@@ -152,7 +140,6 @@ def build_api_dialog() -> ft.AlertDialog:
         modal=False,
         on_dismiss=on_dismiss,
         bgcolor=pt.COLOR_DARK_GREY,
-        #bgcolor='green',
         shape=ft.RoundedRectangleBorder(radius=pt.BORDER_RADIUS)
     )
 
